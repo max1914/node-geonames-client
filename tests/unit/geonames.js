@@ -109,7 +109,7 @@ describe('Geonames API ', function () {
         });
     });
 
-    it('it should be possible to get the city beringen by geonameId (2802170)', function(done) {
+    it('it should be possible to get the city beringen by geonameId (2802170)', function (done) {
         var options = {
             geonameId : '2802170',
             style: geonames.style.full
@@ -121,7 +121,7 @@ describe('Geonames API ', function () {
         });
     });
 
-    it('it should be possible ot get country information for BE (Belgium)', function(done){
+    it('it should be possible ot get country information for BE (Belgium)', function (done) {
         var options = {
             countryCode : 'BE'
         };
@@ -132,7 +132,7 @@ describe('Geonames API ', function () {
         });
     });
 
-    it('it should be possible to get country code for a given lat = 51.05, lng = 5.23 (Beringen Belgium)', function(done){
+    it('it should be possible to get country code for a given lat = 51.05, lng = 5.23 (Beringen Belgium)', function (done) {
         var options = {
             lat: 51.04954,
             lng: 5.22606
@@ -144,7 +144,7 @@ describe('Geonames API ', function () {
         });
     });
 
-    it('it should be possible to get the sub-devisions for a given lat = 51.05, lng = 5.23 (Beringen Belgium)', function(done){
+    it('it should be possible to get the sub-devisions for a given lat = 51.05, lng = 5.23 (Beringen Belgium)', function (done) {
         var options = {
             lat: 51.04954,
             lng: 5.22606,
@@ -157,7 +157,7 @@ describe('Geonames API ', function () {
         });
     });
 
-    it('it should be possible to get the timezone for a given lat = 51.05, lng = 5.23 (Beringen Belgium)', function(done){
+    it('it should be possible to get the timezone for a given lat = 51.05, lng = 5.23 (Beringen Belgium)', function (done) {
         var options = {
             lat: 51.04954,
             lng: 5.22606,
@@ -166,6 +166,18 @@ describe('Geonames API ', function () {
         geonames.getTimeZoneByLatLong(options).then(function (res) {
             assert.equal(res.timezoneId, 'Europe/Brussels');
             console.log(res);
+            done();
+        });
+    });
+
+    it('it should be possible to get the list of names', function (done) {
+        var options = {
+            q: 'London'
+        };
+        geonames.search(options).then(function (res) {
+            assert.equal(res[0].name, 'London');
+            console.log(res[0]);
+            console.log(res[0].name);
             done();
         });
     });
