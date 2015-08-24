@@ -14,8 +14,12 @@ describe('Geonames API ', function () {
     var geonames = require('../../index.js')({username: opts.username});
 
     it('It should be possible to find place "Beringen" with postode 3580 in Belgium', function (done) {
-        geonames.postalCodeLookup({postalCode : '3580', countryCode : 'BE', maxRows : 20}, function (err, res) {
-            assert.equal(err, null);
+        var options = {
+            postalCode: '3580',
+            countryCode : 'BE',
+            maxRows : 20
+        };
+        geonames.postalCodeLookup(options).then(function (res) {
             assert.equal(res[0].placeName, 'Beringen');
             console.log(res);
             done();
@@ -29,8 +33,7 @@ describe('Geonames API ', function () {
             radius: 10,
             maxRows: 5
         };
-        geonames.findNearbyPostalCodesByGpsCoordinates(options, function (err, res) {
-            assert.equal(err, null);
+        geonames.findNearbyPostalCodesByGpsCoordinates(options).then(function (res) {
             assert.equal(res[0].postalCode, '3580');
             console.log(res);
             done();
@@ -39,13 +42,13 @@ describe('Geonames API ', function () {
 
     it('It should be possible to find surrounding postalCodes for "3580" using postalCode and Country', function (done) {
         var options = {
-                    postalCode : '3580',
-                    countryCode : 'BE',
-                    radius : 10,
-                    maxRows : 5
-                };
-        geonames.findNearbyPostalCodesByPostCode(options, function (err, res) {
-            assert.equal(err, null);
+            postalCode : '3580',
+            countryCode : 'BE',
+            radius : 10,
+            maxRows : 5
+        };
+
+        geonames.findNearbyPostalCodesByPostCode(options).then(function (res) {
             assert.equal(res[0].postalCode, '3580');
             console.log(res);
             done();
@@ -53,8 +56,7 @@ describe('Geonames API ', function () {
     });
 
     it('It should be possible to get a list of countries where postalcode service is available', function (done) {
-        geonames.postalCodeCountryInfo(function (err, res) {
-            assert.equal(err, null);
+        geonames.postalCodeCountryInfo().then(function (res) {
             assert.equal(res[0].countryCode, 'AD');
             console.log(res);
             done();
@@ -70,8 +72,7 @@ describe('Geonames API ', function () {
                 cities : geonames.cities.cities1000,
                 maxRows : 5
             };
-        geonames.findNearbyPlaceName(options, function (err, res) {
-            assert.equal(err, null);
+        geonames.findNearbyPlaceName(options).then(function (res) {
             assert.equal(res[0].toponymName, 'Beringen');
             console.log(res);
             done();
@@ -89,8 +90,7 @@ describe('Geonames API ', function () {
             //featureClass: 'H',
             //featureCode: 'STM'
         };
-        geonames.findNearby(options, function (err, res) {
-            assert.equal(err, null);
+        geonames.findNearby(options).then(function (res) {
             assert.equal(res[0].toponymName, 'Beringen');
             console.log(res);
             done();
@@ -102,8 +102,7 @@ describe('Geonames API ', function () {
             lat: 51.04954,
             lng: 5.22606
         };
-        geonames.findByLatLongExtended(options, function (err, res) {
-            assert.equal(err, null);
+        geonames.findByLatLongExtended(options).then(function (res) {
             assert.equal(res[res.length-1].toponymName, 'Beringen');
             console.log(res);
             done();
@@ -115,8 +114,7 @@ describe('Geonames API ', function () {
             geonameId : '2802170',
             style: geonames.style.full
         };
-        geonames.getFeatureByGeoId(options, function (err, res) {
-            assert.equal(err, null);
+        geonames.getFeatureByGeoId(options).then(function (res) {
             assert.equal(res.toponymName, 'Beringen');
             console.log(res);
             done();
@@ -127,8 +125,7 @@ describe('Geonames API ', function () {
         var options = {
             countryCode : 'BE'
         };
-        geonames.getCountryInfoByCountryCode(options, function (err, res) {
-            assert.equal(err, null);
+        geonames.getCountryInfoByCountryCode(options).then(function (res) {
             assert.equal(res[0].countryName, 'Belgium');
             console.log(res);
             done();
@@ -140,8 +137,7 @@ describe('Geonames API ', function () {
             lat: 51.04954,
             lng: 5.22606
         };
-        geonames.getCountryCodeByLatLong(options, function (err, res) {
-            assert.equal(err, null);
+        geonames.getCountryCodeByLatLong(options).then(function (res) {
             assert.equal(res.countryName, 'Belgium');
             console.log(res);
             done();
@@ -154,8 +150,7 @@ describe('Geonames API ', function () {
             lng: 5.22606,
             admLevel : 3
         };
-        geonames.getCountrySubdevisionByLatLong(options, function (err, res) {
-            assert.equal(err, null);
+        geonames.getCountrySubdevisionByLatLong(options).then(function (res) {
             assert.equal(res.adminCode1, 'VLG');
             console.log(res);
             done();
@@ -168,8 +163,7 @@ describe('Geonames API ', function () {
             lng: 5.22606,
             date : new Date().toISOString
         };
-        geonames.getTimeZoneByLatLong(options, function (err, res) {
-            assert.equal(err, null);
+        geonames.getTimeZoneByLatLong(options).then(function (res) {
             assert.equal(res.timezoneId, 'Europe/Brussels');
             console.log(res);
             done();
